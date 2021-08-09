@@ -19,7 +19,7 @@ You should specifiy the following configuration variables to properly import thi
 
 * url_city: URL to obtain the cities database, it can be left as the default if you are using the Lite database.
 * license_key: Your license key to access the database
-* 
+* languages: Which languages to load into the database, from the ones provided in the zip file
 
 ## Usage
 
