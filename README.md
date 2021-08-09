@@ -1,16 +1,8 @@
 # tap-geoip
 
-`tap-geoip` is a Singer tap for Maxmind's GeoIP2 Lite - Theoretically it should also work with the commercial version.
+`tap-geoip` is a Singer tap for [Maxmind's GeoIP2 Lite](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) - Theoretically it should also work with the commercial version because they share the same data format, but i didn't test it. To locally test this tap, you can download the database once from maxmind, and use a local HTTP server, in this case, set the license key to "none".
 
 Built with the Meltano [SDK](https://gitlab.com/meltano/sdk) for Singer Taps.
-
-## Installation
-
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
-```bash
-pipx install tap-geoip
-```
 
 ## Configuration
 

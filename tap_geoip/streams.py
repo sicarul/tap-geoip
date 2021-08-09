@@ -94,7 +94,7 @@ class CityStream(GeoIPStream):
 
 class LocationsStream(GeoIPStream):
     name = "geoip_city_locations"
-    primary_keys = ["network"]
+    primary_keys = ["geoname_id", "locale_code"]
     replication_key = None
     
 
@@ -111,7 +111,6 @@ class LocationsStream(GeoIPStream):
                             reader = csv.DictReader(TextIOWrapper(infile, 'utf-8'))
 
                             for row in reader:
-                                row['language'] = l
                                 yield self.post_process(row)
         else:
             raise ConnectionError("HTTP Status not OK")

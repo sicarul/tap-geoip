@@ -11,9 +11,9 @@ from tap_geoip.streams import (
     CityStream,
     LocationsStream,
 )
-# TODO: Compile a list of custom stream types here
-#       OR rewrite discover_streams() below with your custom logic.
+
 STREAM_TYPES = [
+    #CityStream,
     LocationsStream,
 ]
 
