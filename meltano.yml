@@ -1,0 +1,26 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: tap-geoip
+plugins:
+  extractors:
+  - name: tap-geoip
+    namespace: tap_geoip
+    # TODO: To test using Meltano, replace with absolute path
+    #       to the tap-geoip.sh script:
+    executable: ./tap-geoip.sh
+    capabilities:
+    - state
+    - catalog
+    - discover
+    config:
+      start_date: '2010-01-01T00:00:00Z'
+    settings:
+    # TODO: To configure using Meltano, declare settings and their types here:
+    - name: license_key
+      kind: password
+    - name: city_url
+    - name: languages
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
