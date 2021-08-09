@@ -13,7 +13,7 @@ from tap_geoip.streams import (
 )
 
 STREAM_TYPES = [
-    #CityStream,
+    CityStream,
     LocationsStream,
 ]
 
