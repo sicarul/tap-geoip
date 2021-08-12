@@ -44,12 +44,16 @@ class CityStream(GeoIPStream):
             z = zipfile.ZipFile(BytesIO(r.content))
             files = z.namelist()
             for f in files:
+                folder = f.split('/')[0]
+                datefilename = folder[-8:]
+                date = f"{datefilename[:4]}-{datefilename[4:6]}-{datefilename[6:8]}"
                 if f.endswith("City-Blocks-IPv4.csv"):
                     with z.open(f, 'r') as infile:
                         reader = csv.DictReader(TextIOWrapper(infile, 'utf-8'))
 
                         for row in reader:
                             row['protocol'] = 'IPv4'
+                            row['date'] = date
                             yield self.post_process(row)
                 if f.endswith("City-Blocks-IPv6.csv"):
                     with z.open(f, 'r') as infile:
@@ -57,6 +61,7 @@ class CityStream(GeoIPStream):
 
                         for row in reader:
                             row['protocol'] = 'IPv6'
+                            row['date'] = date
                             yield self.post_process(row)
             
         else:
@@ -78,6 +83,7 @@ class CityStream(GeoIPStream):
 
     schema = th.PropertiesList(
         th.Property("network", th.StringType),
+        th.Property("date", th.DateTimeType),
         th.Property("protocol", th.StringType),
         th.Property("geoname_id", th.IntegerType),
         th.Property("registered_country_geoname_id", th.IntegerType),
@@ -105,12 +111,16 @@ class LocationsStream(GeoIPStream):
             z = zipfile.ZipFile(BytesIO(r.content))
             files = z.namelist()
             for f in files:
+                folder = f.split('/')[0]
+                datefilename = folder[-8:]
+                date = f"{datefilename[:4]}-{datefilename[4:6]}-{datefilename[6:8]}"
                 for l in languages:
                     if f.endswith(f"City-Locations-{l}.csv"):
                         with z.open(f, 'r') as infile:
                             reader = csv.DictReader(TextIOWrapper(infile, 'utf-8'))
 
                             for row in reader:
+                                row['date'] = date
                                 yield self.post_process(row)
         else:
             raise ConnectionError("HTTP Status not OK")
@@ -125,6 +135,7 @@ class LocationsStream(GeoIPStream):
 
     schema = th.PropertiesList(
         th.Property("geoname_id", th.IntegerType),
+        th.Property("date", th.DateTimeType),
         th.Property("locale_code", th.StringType),
         th.Property("continent_code", th.StringType),
         th.Property("continent_name", th.StringType),
